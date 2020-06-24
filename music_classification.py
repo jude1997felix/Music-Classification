@@ -118,7 +118,13 @@ def evaluateKNN(train_df, y):
 	plt.show()
 
 
+# KNN on raw data
+evaluateKNN(X, y)
 
+# KNN for normalised data
+evaluateKNN(X_scaled, y)
+	
+	
 model = LogisticRegression(solver='lbfgs',penalty='l2', class_weight='balanced')
 print(model)
 validate_model(X,y, model, 3)
@@ -175,3 +181,65 @@ validate_model(X_scaled_new,y, model, 3)
 #Pandas profiling to find the weightage of the attributes
 from pandas_profiling import ProfileReport
 profile = ProfileReport(df, title='Pandas Profiling Report', html={'style':{'full_width':True}})
+
+# Decision Tree Classifier for raw data
+model= tree.DecisionTreeClassifier(max_depth=2)
+print(model)
+validate_model(X_new,y, model, 3)
+
+#Decision Tree Classifier for normalised data
+X_scaled=normalise_data(X)
+
+model= tree.DecisionTreeClassifier(max_depth=2)
+print(model)
+validate_model(X_scaled,y, model, 3)
+
+
+# LDA model on raw data
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
+X = train_df.iloc[:,0:13] 
+y = train_df['label'] 
+
+
+model = LinearDiscriminantAnalysis()
+print(model)
+validate_model(X,y, model, 3)
+
+# LDA for normalised data
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis
+
+X = train_df.iloc[:,0:13] 
+y = train_df['label'] 
+
+
+X_scaled = normalise_data(X)
+
+model = LinearDiscriminantAnalysis()
+print(model)
+validate_model(X_scaled,y, model, 3)
+
+# QDA for raw data
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+
+X = train_df.iloc[:,0:13] 
+y = train_df['label'] 
+
+
+model = QuadraticDiscriminantAnalysis()
+print(model)
+validate_model(X,y, model, 3)
+
+# QDA for normalised data
+from sklearn.discriminant_analysis import QuadraticDiscriminantAnalysis
+
+X = train_df.iloc[:,0:13] 
+y = train_df['label'] 
+
+
+X_scaled = normalise_data(X)
+
+model = QuadraticDiscriminantAnalysis()
+print(model)
+validate_model(X_scaled,y, model, 3)
+
